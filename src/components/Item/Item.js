@@ -1,4 +1,4 @@
-import { Card, Button, Col } from "react-bootstrap";
+import { Button, Card, Col } from "react-bootstrap";
 
 function Item({ producto }) {
   return (
@@ -7,7 +7,9 @@ function Item({ producto }) {
         <Card.Img variant="top" src={producto.imagen} />
         <Card.Body>
           <Card.Title>{producto.titulo}</Card.Title>
-          <Card.Text>{producto.descripcion} - ${producto.precio}</Card.Text>
+          <Card.Text>
+            {producto.descripcion} - ${producto.precio}
+          </Card.Text>
           <Button variant="primary">Mas info</Button>
         </Card.Body>
       </Card>

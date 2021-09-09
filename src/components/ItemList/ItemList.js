@@ -1,5 +1,5 @@
 import { Row } from "react-bootstrap";
-import Item from "./Item";
+import { Item } from "../../components";
 
 function ItemList({ productos }) {
   return (

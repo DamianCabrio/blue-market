@@ -1,4 +1,7 @@
-import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap";
+import {
+  Button, Container, Form,
+  FormControl, Nav, Navbar, NavDropdown
+} from "react-bootstrap";
 
 function NavBar() {
   return (
