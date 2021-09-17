@@ -1,17 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { ItemListContainer, NavBar } from "./components";
+import { NavBar } from "./components";
+import { ItemListContainer, ItemDetailContainer } from "./views";
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <NavBar />
-      <Container>
-        <h1>Blue Market Inicio</h1>
-        <ItemListContainer />
-      </Container>
-    </div>
+      <Switch>
+        <Route path='/' exact component={ItemListContainer} /> 
+        <Route path='/category/:idCategory' exact component={ItemListContainer} /> 
+        <Route path='/item/:idItem' exact component={ItemDetailContainer} /> 
+      </Switch>
+    </BrowserRouter>
   );
 }
 

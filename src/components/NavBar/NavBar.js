@@ -1,22 +1,43 @@
 import {
-  Button, Container, Form,
-  FormControl, Nav, Navbar, NavDropdown
+  Button,
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar,
+  NavDropdown,
 } from "react-bootstrap";
+
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#inicio">Blue Market</Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand>Blue Market</Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#catalogo">Catalogo</Nav.Link>
+            <Link to="/">
+              <Nav.Link href="#link">Catalogo</Nav.Link>
+            </Link>
             <Nav.Link href="#ofertas">Ofertas</Nav.Link>
             <NavDropdown title="Categorias" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#tecnologia">Tecnologia</NavDropdown.Item>
-              <NavDropdown.Item href="#hogar">Hogar</NavDropdown.Item>
-              <NavDropdown.Item href="#deportes">Deportes</NavDropdown.Item>
+              <Link to="/category/celulares">
+                <NavDropdown.Item href="#link">Celulares</NavDropdown.Item>
+              </Link>
+              <Link to="/category/computadoras">
+                <NavDropdown.Item href="#link">Computadora</NavDropdown.Item>
+              </Link>
+              <Link to="/category/perifericos">
+                <NavDropdown.Item href="#link">Perifericos</NavDropdown.Item>
+              </Link>
+              <Link to="/category/sillas">
+                <NavDropdown.Item href="#link">Sillas</NavDropdown.Item>
+              </Link>
             </NavDropdown>
           </Nav>
           <Nav>

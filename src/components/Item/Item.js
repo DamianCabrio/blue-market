@@ -1,4 +1,5 @@
 import { Button, Card, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Item({ producto }) {
   return (
@@ -8,9 +9,11 @@ function Item({ producto }) {
         <Card.Body>
           <Card.Title>{producto.titulo}</Card.Title>
           <Card.Text>
-            {producto.descripcion} - ${producto.precio}
+            {producto.descripcion} - ${producto.precio} ({producto.categoria})
           </Card.Text>
-          <Button variant="primary">Mas info</Button>
+          <Link to={"/item/" + producto.id}>
+            <Button variant="primary">Mas info</Button>
+          </Link>
         </Card.Body>
       </Card>
     </Col>
