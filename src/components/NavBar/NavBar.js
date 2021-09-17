@@ -20,15 +20,23 @@ function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Buscar un producto"
-                className="mr-2"
-                aria-label="Buscar"
+            <div className="d-flex align-items-center">
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Buscar un producto"
+                  className="mr-2"
+                  aria-label="Buscar"
+                />
+                <Button variant="outline-success">Buscar</Button>
+              </Form>
+              <img
+                src="/img/shopping-cart.svg"
+                alt="Carrito"
+                width="25px"
+                className="carrito"
               />
-              <Button variant="outline-success">Buscar</Button>
-            </Form>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>
