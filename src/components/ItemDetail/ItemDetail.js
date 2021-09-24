@@ -1,8 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useCartContext } from './../../context/cartContext';
 
 function ItemDetail({ item }) {
+  const [showItemCount, setShowItemCount] = useState(true);
+  const { addItem } = useCartContext();
+
+  function onAdd(quantityToAdd) {
+    setShowItemCount(false);
+    addItem(item, parseInt(quantityToAdd));
+  }
+
   return (
     <div className="card mb-3" style={{ width: "100%", marginTop: "30px" }}>
       <div className="row no-gutters">
