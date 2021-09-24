@@ -24,7 +24,7 @@ function NavBar() {
             <Link to="/">
               <Nav.Link href="#link">Catalogo</Nav.Link>
             </Link>
-            <Nav.Link href="#ofertas">Ofertas</Nav.Link>
+            <Nav.Link href="#link">Ofertas</Nav.Link>
             <NavDropdown title="Categorias" id="collasible-nav-dropdown">
               <Link to="/category/celulares">
                 <NavDropdown.Item href="#link">Celulares</NavDropdown.Item>
