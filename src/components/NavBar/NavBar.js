@@ -21,22 +21,24 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/">
-              <Nav.Link href="#link">Catalogo</Nav.Link>
+            <Link to="/" className="nav-link">
+              Catalogo
             </Link>
-            <Nav.Link href="#link">Ofertas</Nav.Link>
+            <Link to="/ofertas" className="nav-link">
+              Ofertas
+            </Link>
             <NavDropdown title="Categorias" id="collasible-nav-dropdown">
-              <Link to="/category/celulares">
-                <NavDropdown.Item href="#link">Celulares</NavDropdown.Item>
+              <Link to="/category/celulares" className="dropdown-item">
+                Celulares
               </Link>
-              <Link to="/category/computadoras">
-                <NavDropdown.Item href="#link">Computadora</NavDropdown.Item>
+              <Link to="/category/computadoras" className="dropdown-item">
+                Computadora
               </Link>
-              <Link to="/category/perifericos">
-                <NavDropdown.Item href="#link">Perifericos</NavDropdown.Item>
+              <Link to="/category/perifericos" className="dropdown-item">
+                Perifericos
               </Link>
-              <Link to="/category/sillas">
-                <NavDropdown.Item href="#link">Sillas</NavDropdown.Item>
+              <Link to="/category/sillas" className="dropdown-item">
+                Sillas
               </Link>
             </NavDropdown>
           </Nav>
