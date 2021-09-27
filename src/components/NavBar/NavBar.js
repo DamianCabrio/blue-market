@@ -10,8 +10,12 @@ import {
 
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import CartWidget from "./../CartWidget/CartWidget";
+import { useCartContext } from "./../../context/cartContext";
 
 function NavBar() {
+  const { cartList } = useCartContext();
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -53,12 +57,7 @@ function NavBar() {
                 />
                 <Button variant="outline-success">Buscar</Button>
               </Form>
-              <img
-                src="/img/shopping-cart.svg"
-                alt="Carrito"
-                width="25px"
-                className="carrito"
-              />
+              {cartList.length > 0 && <CartWidget />}
             </div>
           </Nav>
         </Navbar.Collapse>
