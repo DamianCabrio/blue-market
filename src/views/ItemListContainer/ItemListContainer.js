@@ -2,44 +2,38 @@ import { useEffect, useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { useParams } from "react-router";
 import { ItemList } from "../../components";
-
-const productosArray = require("../../data/productosArray.json");
-
-const productosPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    if (productosArray.length > 0) {
-      resolve(productosArray);
-    } else {
-      reject("Error: Array de productos vacio");
-    }
-  }, 2000);
-});
+import { useProductContext } from "../../context/productContext";
 
 function ItemListContainer() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { idCategory } = useParams();
+  const { getProducts, getProductsByCategory } = useProductContext();
 
   useEffect(() => {
-    productosPromise
+    setLoading(true)
+    if (idCategory) {
+      getProductsByCategory(idCategory)
       .then((res) => {
-        if (idCategory) {
-          res = res.filter((produc) => produc.categoria === idCategory);
-        }
-
         setProductos(res);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, [idCategory]);
+      .then(() => setLoading(false));
+    } else {
+      getProducts()
+        .then((res) => {
+          setProductos(res);
+        })
+        .catch((err) => console.log(err))
+        .then(() => setLoading(false));
+    }
+  }, [idCategory, getProducts, getProductsByCategory]);
 
   return (
     <>
       <Container>
         <h1>Blue Market Inicio</h1>
-        { idCategory ? (
-        <h3>Categoria {idCategory}</h3> 
-        ) : "" }
+        {idCategory ? <h3>Categoria {idCategory}</h3> : ""}
         {loading ? (
           <div className="text-center">
             <Spinner animation="border" role="status">
@@ -48,9 +42,9 @@ function ItemListContainer() {
           </div>
         ) : productos.length > 0 ? (
           <ItemList productos={productos} />
-        ) :
+        ) : (
           <h3>No se encontraron productos con esta categoria</h3>
-        }
+        )}
       </Container>
     </>
   );

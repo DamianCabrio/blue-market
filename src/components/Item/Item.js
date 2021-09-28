@@ -5,11 +5,11 @@ function Item({ producto }) {
   return (
     <Col>
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={producto.imagen} />
+        <Card.Img variant="top" src={producto.imageId} />
         <Card.Body>
-          <Card.Title>{producto.titulo}</Card.Title>
+          <Card.Title>{producto.title}</Card.Title>
           <Card.Text>
-            {producto.descripcion} - ${producto.precio} ({producto.categoria})
+            {producto.description} - ${producto.price} ({producto.categoryId})
           </Card.Text>
           <Link to={"/item/" + producto.id}>
             <Button variant="primary">Mas info</Button>

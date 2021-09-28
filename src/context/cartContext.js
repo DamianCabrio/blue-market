@@ -9,8 +9,6 @@ export const useCartContext = () => {
 export const CartContext = ({ children }) => {
   const [cartList, setCartList] = useState([]);
   const [cartTotals, setCartTotals] = useState({});
-  console.log(cartList);
-  console.log(cartTotals);
 
   function addItem(item, quantity) {
     let newCartList;
@@ -70,7 +68,7 @@ export const CartContext = ({ children }) => {
   function itemTotals(newCartList) {
     const amount = newCartList.reduce((prev, cur) => prev + cur.quantity, 0);
     const totalPrice = newCartList.reduce(
-      (prev, cur) => prev + cur.item.precio * cur.quantity,
+      (prev, cur) => prev + cur.item.price * cur.quantity,
       0
     );
     setCartTotals({ amount: amount, total: totalPrice });
