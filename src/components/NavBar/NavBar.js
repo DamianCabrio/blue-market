@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -6,15 +7,29 @@ import {
   FormControl,
   Nav,
   Navbar,
-  NavDropdown
+  NavDropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCartContext } from "./../../context/cartContext";
+import { useCategoryContext } from "./../../context/categoryContext";
 import CartWidget from "./../CartWidget/CartWidget";
 
-
 function NavBar() {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const { cartList } = useCartContext();
+  const { getCategories } = useCategoryContext();
+
+  useEffect(() => {
+    setLoading(true);
+    getCategories()
+      .then((res) => {
+        setCategories(res);
+      })
+      .catch((err) => console.log(err))
+      .then(() => setLoading(false));
+  }, [getCategories]);
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -31,20 +46,21 @@ function NavBar() {
             <Link to="/ofertas" className="nav-link">
               Ofertas
             </Link>
-            <NavDropdown title="Categorias" id="collasible-nav-dropdown">
-              <Link to="/category/celulares" className="dropdown-item">
-                Celulares
-              </Link>
-              <Link to="/category/computadoras" className="dropdown-item">
-                Computadora
-              </Link>
-              <Link to="/category/perifericos" className="dropdown-item">
-                Perifericos
-              </Link>
-              <Link to="/category/sillas" className="dropdown-item">
-                Sillas
-              </Link>
-            </NavDropdown>
+            {!loading && (
+              <NavDropdown title="Categorias" id="collasible-nav-dropdown">
+                {categories.map((category) => {
+                  return (
+                    <Link
+                      key={category.id}
+                      to={"/category/" + category.id}
+                      className="dropdown-item"
+                    >
+                      {category.id.charAt(0).toUpperCase() + category.id.slice(1)}
+                    </Link>
+                  );
+                })}
+              </NavDropdown>
+            )}
           </Nav>
           <Nav>
             <div className="d-flex align-items-center">
