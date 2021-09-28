@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import ItemCount from "./../ItemCount";
 import { useCartContext } from './../../context/cartContext';
+import ItemCount from "./../ItemCount";
 
 function ItemDetail({ item }) {
   const [showItemCount, setShowItemCount] = useState(true);

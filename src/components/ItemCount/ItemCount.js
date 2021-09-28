@@ -1,5 +1,5 @@
-import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { useState } from 'react';
+import { Button, FormControl, InputGroup } from "react-bootstrap";
 
 function ItemCount({ onAdd }) {
   const [ quantity, setQuantity ] = useState(1);

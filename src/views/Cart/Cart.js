@@ -1,7 +1,7 @@
-import { useCartContext } from "./../../context/cartContext";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CartProducts from "./../../components/CartProducts/index";
+import { useCartContext } from "./../../context/cartContext";
 
 function Cart() {
   const { cartList, cartTotals, clear } = useCartContext();

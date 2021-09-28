@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
   Container,
@@ -5,13 +6,12 @@ import {
   FormControl,
   Nav,
   Navbar,
-  NavDropdown,
+  NavDropdown
 } from "react-bootstrap";
-
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import CartWidget from "./../CartWidget/CartWidget";
 import { useCartContext } from "./../../context/cartContext";
+import CartWidget from "./../CartWidget/CartWidget";
+
 
 function NavBar() {
   const { cartList } = useCartContext();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { Container, Spinner } from "react-bootstrap";
 import { useParams } from "react-router";
-import { Spinner, Container } from "react-bootstrap";
 import { ItemDetail } from "../../components";
 
 const productosArray = require("../../data/productosArray.json");

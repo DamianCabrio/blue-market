@@ -1,4 +1,3 @@
-
 import { useCartContext } from './../../context/cartContext';
 import CartItem from './../CartItem/index';
 
