@@ -30,7 +30,7 @@ function ItemDetail({ item }) {
               </small>
             </p>
             {showItemCount ? (
-              <ItemCount onAdd={onAdd} />
+              <ItemCount onAdd={onAdd} max={item.stock} />
             ) : (
               <Link to="/cart">
                 <Button className="d-block mb-3 mt-3">Ir al carrito</Button>
