@@ -10,8 +10,8 @@ export const useProductContext = () => {
 
 export const ProductContext = ({ children }) => {
   const getProducts = async () => {
-    const productosDb = await getDocs(collection(db, "items"));
-    return productosDb.docs.map((product) => ({
+    const productsDb = await getDocs(collection(db, "items"));
+    return productsDb.docs.map((product) => ({
       id: product.id,
       ...product.data(),
     }));
@@ -22,8 +22,8 @@ export const ProductContext = ({ children }) => {
       collection(db, "items"),
       where("categoryId", "==", category)
     );
-    const productosDb = await getDocs(q);
-    return productosDb.docs.map((product) => ({
+    const productsDb = await getDocs(q);
+    return productsDb.docs.map((product) => ({
       id: product.id,
       ...product.data(),
     }));

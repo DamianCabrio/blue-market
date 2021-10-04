@@ -1,17 +1,17 @@
 import { Button, Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Item({ producto }) {
+function Item({ product }) {
   return (
     <Col>
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={producto.imageId} />
+        <Card.Img variant="top" src={product.imageId} />
         <Card.Body>
-          <Card.Title>{producto.title}</Card.Title>
+          <Card.Title>{product.title} {product.stock === 0 && <span className="text-danger"> Sin stock</span>}</Card.Title>
           <Card.Text>
-            {producto.description} - ${producto.price} ({producto.categoryId})
+            {product.description} - ${product.price} ({product.categoryId})
           </Card.Text>
-          <Link to={"/item/" + producto.id}>
+          <Link to={"/item/" + product.id}>
             <Button variant="primary">Mas info</Button>
           </Link>
         </Card.Body>

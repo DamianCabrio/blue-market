@@ -5,7 +5,7 @@ import { ItemList } from "../../components";
 import { useProductContext } from "../../context/productContext";
 
 function ItemListContainer() {
-  const [productos, setProductos] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { idCategory } = useParams();
   const { getProducts, getProductsByCategory } = useProductContext();
@@ -15,14 +15,14 @@ function ItemListContainer() {
     if (idCategory) {
       getProductsByCategory(idCategory)
       .then((res) => {
-        setProductos(res);
+        setProducts(res);
       })
       .catch((err) => console.log(err))
       .then(() => setLoading(false));
     } else {
       getProducts()
         .then((res) => {
-          setProductos(res);
+          setProducts(res);
         })
         .catch((err) => console.log(err))
         .then(() => setLoading(false));
@@ -40,8 +40,8 @@ function ItemListContainer() {
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
-        ) : productos.length > 0 ? (
-          <ItemList productos={productos} />
+        ) : products.length > 0 ? (
+          <ItemList products={products} />
         ) : (
           <h3>No se encontraron productos con esta categoria</h3>
         )}
