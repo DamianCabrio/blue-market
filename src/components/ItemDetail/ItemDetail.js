@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useCartContext } from './../../context/cartContext';
+import { useCartContext } from "./../../context/cartContext";
 import ItemCount from "./../ItemCount";
 
 function ItemDetail({ item }) {
@@ -26,15 +26,20 @@ function ItemDetail({ item }) {
             <p className="card-text">{item.description}</p>
             <p className="card-text">
               <small className="text-muted">
-                Categoria: {item.categoryId} - Precio: $ {item.price}
+                Categoria: {item.categoryId} - Precio: $ {item.price} - Stock:{" "}
+                {item.stock}
               </small>
             </p>
-            {showItemCount ? (
-              <ItemCount onAdd={onAdd} max={item.stock} />
+            {item.stock > 0 ? (
+              showItemCount ? (
+                <ItemCount onAdd={onAdd} max={item.stock} />
+              ) : (
+                <Link to="/cart">
+                  <Button className="d-block mb-3 mt-3">Ir al carrito</Button>
+                </Link>
+              )
             ) : (
-              <Link to="/cart">
-                <Button className="d-block mb-3 mt-3">Ir al carrito</Button>
-              </Link>
+              <h3 className="text-danger">No hay stock</h3>
             )}
             <Link to={"/"}>
               <Button variant="primary">Volver a inicio</Button>
