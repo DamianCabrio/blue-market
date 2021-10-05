@@ -11,14 +11,18 @@ function ItemDetailContainer() {
   const { idItem } = useParams();
 
   useEffect(() => {
+    document.title = "Blue Market";
     setLoading(true)
     getProductById(idItem)
       .then((res) => {
         setItem(res);
       })
       .catch((err) => console.log(err))
-      .then(() => setLoading(false));
-  }, [idItem, getProductById]);
+      .then(() => {
+        document.title = item.title + " - Blue Market";
+        setLoading(false)
+      });
+  }, [idItem, getProductById, item.title]);
 
   return (
     <>

@@ -11,8 +11,10 @@ function ItemListContainer() {
   const { getProducts, getProductsByCategory } = useProductContext();
 
   useEffect(() => {
+    document.title = "Catalogo Blue Market"
     setLoading(true)
     if (idCategory) {
+      document.title = idCategory + " - Blue Market"
       getProductsByCategory(idCategory)
       .then((res) => {
         setProducts(res);

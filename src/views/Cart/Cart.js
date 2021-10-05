@@ -1,5 +1,5 @@
 import { Timestamp } from "@firebase/firestore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AlertCart, CartProducts, CartSidebar } from "../../components";
@@ -16,6 +16,10 @@ function Cart() {
   const [formData, setFormData] = useState(initialFormData);
   const [showAlert, setShowAlert] = useState(false);
   const [alertVariation, setAlertVariation] = useState("");
+
+  useEffect(() => {
+    document.title = "Carrito - Blue Market"
+  },[]);
 
   function handleOnChange(e) {
     setFormData({
