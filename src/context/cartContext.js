@@ -1,4 +1,7 @@
+import { addDoc, collection } from "@firebase/firestore";
 import { createContext, useContext, useState } from "react";
+import db from "../services/getFirebase";
+import { useProductContext } from "./productContext";
 
 const cartContext = createContext();
 
@@ -9,6 +12,7 @@ export const useCartContext = () => {
 export const CartContext = ({ children }) => {
   const [cartList, setCartList] = useState([]);
   const [cartTotals, setCartTotals] = useState({});
+  const { updateStock } = useProductContext();
 
   function addItem(item, quantity) {
     let newCartList;
@@ -78,6 +82,19 @@ export const CartContext = ({ children }) => {
     return cartList.some((tempItem) => tempItem.item.id === itemId);
   }
 
+  const saveOrder = async (order) => {
+    const docRef = await addDoc(collection(db, "orders"), {
+      order,
+    });
+    if (docRef.id !== undefined) {
+      await updateStock(cartList);
+      clear();
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <cartContext.Provider
       value={{
@@ -86,6 +103,7 @@ export const CartContext = ({ children }) => {
         clear,
         isInCart,
         subtractItem,
+        saveOrder,
         cartTotals,
         cartList,
       }}

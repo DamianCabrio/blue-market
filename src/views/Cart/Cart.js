@@ -1,17 +1,61 @@
+import { Timestamp } from "@firebase/firestore";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import CartProducts from "./../../components/CartProducts/index";
+import { AlertCart, CartProducts, CartSidebar } from "../../components";
 import { useCartContext } from "./../../context/cartContext";
 
+const initialFormData = {
+  name: "",
+  phone: "",
+  email: "",
+};
+
 function Cart() {
-  const { cartList, cartTotals, clear } = useCartContext();
+  const { cartList, cartTotals, saveOrder } = useCartContext();
+  const [formData, setFormData] = useState(initialFormData);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertVariation, setAlertVariation] = useState("");
+
+  function handleOnChange(e) {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    let order = {};
+    order.date = Timestamp.fromDate(new Date());
+    order.buyer = formData;
+    order.total = cartTotals.total;
+    order.items = cartList.map((cartItem) => {
+      const id = cartItem.item.id;
+      const title = cartItem.item.title;
+      const price = cartItem.item.price * cartItem.quantity;
+      return { id, title, price };
+    });
+    saveOrder(order).then((res) => {
+      if (res) {
+        setAlertVariation("success");
+      } else {
+        setAlertVariation("danger");
+      }
+      setShowAlert(true);
+    });
+    setFormData(initialFormData);
+  };
 
   return (
     <>
       <div className="row no-gutters justify-content-center">
         <div className="col-sm-9 p-3">
+          {showAlert && (
+            <AlertCart setShow={setShowAlert} variation={alertVariation} />
+          )}
           {cartList.length > 0 ? (
-            <CartProducts />
+            <CartProducts cartList={cartList} />
           ) : (
             <div className="p-3 text-center text-muted">
               <p>Su carrito está vacío</p>
@@ -22,27 +66,11 @@ function Cart() {
           )}
         </div>
         {cartList.length > 0 && (
-          <div className="col-sm-3 p-3">
-            <div className="card card-body">
-              <p className="mb-1">Total de artículos</p>
-              <h4 className=" mb-3 txt-right">{cartTotals.amount}</h4>
-              <p className="mb-1">Pago total</p>
-              <h3 className="m-0 txt-right">${cartTotals.total}</h3>
-              <hr className="my-4" />
-              <div className="text-center">
-                <button type="button" className="btn btn-primary mb-2">
-                  TERMINAR COMPRA
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outlineprimary btn-sm"
-                  onClick={clear}
-                >
-                  LIMPIAR CARRITO
-                </button>
-              </div>
-            </div>
-          </div>
+          <CartSidebar
+            handleCheckout={handleCheckout}
+            handleOnChange={handleOnChange}
+            formData={formData}
+          />
         )}
       </div>
     </>

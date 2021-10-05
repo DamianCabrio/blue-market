@@ -1,5 +1,14 @@
+import {
+  collection,
+  doc,
+  documentId,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  writeBatch,
+} from "@firebase/firestore";
 import { createContext, useContext } from "react";
-import { collection, doc, getDocs, getDoc, query, where } from "@firebase/firestore";
 import db from "../services/getFirebase";
 
 const productContext = createContext();
@@ -39,12 +48,37 @@ export const ProductContext = ({ children }) => {
     }
   };
 
+  const updateStock = async (cartList) => {
+    const itemsToUpdateQuery = query(
+      collection(db, "items"),
+      where(
+        documentId(),
+        "in",
+        cartList.map((i) => i.item.id)
+      )
+    );
+    const itemsToUpdate = await getDocs(itemsToUpdateQuery);
+
+    const batch = writeBatch(db);
+
+    itemsToUpdate.docs.forEach((docSnapshot) => {
+      batch.update(docSnapshot.ref, {
+        stock:
+          docSnapshot.data().stock -
+          cartList.find((item) => item.item.id === docSnapshot.id).quantity,
+      });
+    });
+
+    await batch.commit();
+  };
+
   return (
     <productContext.Provider
       value={{
         getProducts,
         getProductsByCategory,
         getProductById,
+        updateStock,
       }}
     >
       {children}
