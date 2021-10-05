@@ -43,9 +43,6 @@ function NavBar() {
             <Link to="/" className="nav-link">
               Catalogo
             </Link>
-            <Link to="/ofertas" className="nav-link">
-              Ofertas
-            </Link>
             {!loading && (
               <NavDropdown title="Categorias" id="collasible-nav-dropdown">
                 {categories.map((category) => {
