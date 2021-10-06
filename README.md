@@ -87,7 +87,7 @@ Tiene 4 funciones:
 Las librerias utilizadas para el proyecto fueron:
 1. React (V17.0.2): Libreria base, para facilidad de desarrollo y mejor reactividad del sitio. [Link](https://es.reactjs.org/). 
 2. react-bootstrap (V2.0.0-beta.6): Adaptación de la librería de Bootstrap para React, utilizada para facilitar el diseño de la UI. [Link](https://react-bootstrap.github.io/).
-3. react-router-dom (V5.3.0): Para permitir cambios de vistas al hacer clic en los links del sitio. [Link](https://www.npmjs.com/package/react-router-dom).
+3. react-router-dom (V5.3.0): Para permitir cambios de vistas al hacer clic en los links del sitio. [Link](https://reactrouter.com/web/guides/quick-start).
 4. Firebase (V9.1.0): SDK para utilizar Firestore. Aquí se guardan los productos, categorías y ordenes. [Link](https://firebase.google.com/)
 
 ## Base de datos
