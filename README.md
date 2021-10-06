@@ -1,12 +1,29 @@
 # Blue Market
 
+### [Link al sitio](https://blue-market.netlify.app/)
+
+## Como correr el proyecyo
+Para empezar correr el proyecto localmente primero bajar las dependencias con el comando `npm install`, luego correr el comando `npm start`.
+Para generar un build para producción correr el comando `npm run build`.
+
+Para conectar el proyecto con una base de datos de Firestore hace falta crear un archivo .env.local con las credenciales de Firestore (se puede seguir el ejemplo del archivo .env.example, también en la ruta del proyecto).
+
 ## Componentes
+
+### AlertCart
+Cartel de alerta que se puede visualizar luego de realizar una compra. Tiene dos variantes, alerta de éxito y falla dependiendo del resultado de la operación de guardar la orden del usuario.
 
 ### CartItem
 Desglose de un ítem en el carrito, con control para agregar, quitar o eliminar un ítem en particular, además de la cantidad y precio de este.
 
+### CartModal
+Modal con formulario para guardar datos del comprador en una orden, se puede ver en la vista de Cart.
+
 ### CartProducts
 Itera por todos los ítems que se encuentran el carrito actualmente, y crea un componente CartItem para cada uno de ellos.
+
+## CartSidebar
+Muestra el total del precio y cantidad de artículos, y tiene 2 botones para terminar la compra o limpiar el carrito.
 
 ### CartWidget
 Icono de carrito que se muestra en el NavBar. Solo es visible cuando hay algún ítem en él, y tiene un contador con la cantidad de ítem que tiene adentro, que se actualiza en tiempo real
@@ -28,10 +45,9 @@ Itera por todos los productos que le envíen por props, y crea un componente Ít
 El NavBar tiene los siguientes elementos actualmente:
 1. Brand link: Link con el nombre del sitio, que te lleva al index si se le hace clic.
 2. Catálogo: Igual al brand link:
-3. Ofertas: Ahora no tiene ningún efecto, pero más adelante filtrará los productos mostrando solo los que tengan alguna oferta.
-4. Dropdown con categorías: Muestra las categorías disponibles en el sitio, y permite filtrar por ellas.
-5. Buscador: Actualmente no tiene funcionamiento, pero más adelante te va a permitir filtrar productos por nombre
-6. Carrito: Actualmente no tiene funcionamiento, pero más adelante te va a permitir ver los productos que guardaste para comprar
+3. Dropdown con categorías: Muestra las categorías disponibles en el sitio, y permite filtrar por ellas.
+4. Buscador: Actualmente no tiene funcionamiento, pero más adelante te va a permitir filtrar productos por nombre
+5. Carrito: Actualmente no tiene funcionamiento, pero más adelante te va a permitir ver los productos que guardaste para comprar
 
 ## Rutas disponibles actualmente:
 1. `/`: Indice del sitio, muestra el catálogo de todos los productos, con la vista ItemListContainer.
@@ -43,11 +59,16 @@ El NavBar tiene los siguientes elementos actualmente:
 
 ### cartContext
 Contexto que guarda los ítems que fueron agregados al carrito por el usuario.
-Tiene 4 funciones:
-1. AddItem: Agrega una cierta cantidad de un ítem al carrito, si ese ítem ya esta al carrito no lo vuelve a agregar, sino que suma la nueva cantidad al elemento ya en el array.
-2. removeItem: Remueve un ítem del carrito con un ID de producto, si ese ID de producto no existe en el carrito devuelve false.
-3. clear: Limpia el carrito de todos sus ítems.
-4. isInCart: Dado un ID de ítem, devuelve true si está en el carrito y false si no.
+Tiene 9 funciones:
+1. addItem: Agrega una cierta cantidad de un ítem del carrito, si ese ítem ya esta al carrito no lo vuelve a agregar, sino que suma la nueva cantidad al elemento ya en el array.
+2. subtractItem: Elimina una cierta cantidad de un ítem del carrito.
+3. manageItemInCart: Metodo que le da funcionalidad a addItem y subtractItem, se simplificó la funcionalidad de estos dos métodos en esta función para no repetir código.
+4. findItemIndex: Encuentra el índice de un ítem en el array de cartList dado un ID de ítem.
+5. removeItem: Remueve un ítem del carrito con un ID de producto, si ese ID de producto no existe en el carrito devuelve false.
+6. clear: Limpia el carrito de todos sus ítems.
+7. itemTotals: Retorna un array con el precio total de todos los productos del carrito, y su cantidad.
+8. isInCart: Dado un ID de ítem, devuelve true si está en el carrito y false si no.
+9. saveOrder: Guarda una orden de ítems en la base de datos de Firestore, además hace un llamado a la función que actualiza los stocks de ítems.
 
 ### categoryContext
 Contexto que contiene las funciones para trabajar con las categorías desde la base de datos de firestore.
@@ -56,24 +77,25 @@ Tiene 1 función:
 
 ### productContext
 Contexto que contiene las funciones para trabajar con los productos desde la base de datos de firestore.
-Tiene 3 funciones:
+Tiene 4 funciones:
 1. getProducts: Trae los documentos de la colección "items" de firestore.
 2. getProductsByCategory: Trae los documentos de la colección "items" de firestore filtrados por un ID de categoría particular.
 3. getProductById: Trae un documento de la colección "item", según un ID dado.
+4. updateStock: Actualiza el stock de los productos al realizarse una compra. Esta actualización la hace en lote.
+
+## Librerias utilizadas
+Las librerias utilizadas para el proyecto fueron:
+1. React (V17.0.2): Libreria base, para facilidad de desarrollo y mejor reactividad del sitio. [Link](https://es.reactjs.org/). 
+2. react-bootstrap (V2.0.0-beta.6): Adaptación de la librería de Bootstrap para React, utilizada para facilitar el diseño de la UI. [Link](https://react-bootstrap.github.io/).
+3. react-router-dom (V5.3.0): Para permitir cambios de vistas al hacer clic en los links del sitio. [Link](https://www.npmjs.com/package/react-router-dom).
+4. Firebase (V9.1.0): SDK para utilizar Firestore. Aquí se guardan los productos, categorías y ordenes. [Link](https://firebase.google.com/)
 
 ## Base de datos
 
-La base de datos que se está utilizando es Firestore.
-Esta base tiene 2 colecciones con la siguiente estructura:
+La base de datos que se está utilizando es Firestore. 
+Esta base tiene 3 colecciones con la siguiente estructura:
 1. category: description (string), id (string).
 2. items: categoryId (string), description (string), imagenId (string), price (number), stock (number), title (string).
+3. orders: Objeto orden con otro objeto buyer dentro con los campos email (string), name (string) y phone (string). Luego un campo date (timestamp), otro objeto llamado items con un arreglo con todos los items que el usuario compro, que tienen los campos id (string), price (number) y title (string). Por último un campo total (number)
 
-Para conectar el proyecto con una base de datos de Firestore hace falta crear un archivo .env.local con las credenciales de Firestore (se puede seguir el ejemplo del archivo .env.example, también en la ruta del proyecto).
-
----
-
-Proyecto creado con React.
-Para empezar correr el proyecto localmente primero bajar las dependencias con el comando `npm install`, luego correr el comando `npm start`.
-Para generar un build para producción correr el comando `npm run build`
-
-Documentación de React [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://i.ibb.co/KGNVNV7/Modelo-Base-de-datos.jpg" alt="Imagen del modelo de la base" style="width:500px;"/>
