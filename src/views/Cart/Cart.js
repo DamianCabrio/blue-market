@@ -15,11 +15,12 @@ function Cart() {
   const { cartList, cartTotals, saveOrder } = useCartContext();
   const [formData, setFormData] = useState(initialFormData);
   const [showAlert, setShowAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [alertVariation, setAlertVariation] = useState("");
 
   useEffect(() => {
-    document.title = "Carrito - Blue Market"
-  },[]);
+    document.title = "Carrito - Blue Market";
+  }, []);
 
   function handleOnChange(e) {
     setFormData({
@@ -30,6 +31,7 @@ function Cart() {
 
   const handleCheckout = (e) => {
     e.preventDefault();
+    setLoading(true);
     let order = {};
     order.date = Timestamp.fromDate(new Date());
     order.buyer = formData;
@@ -47,36 +49,43 @@ function Cart() {
         setAlertVariation("danger");
       }
       setShowAlert(true);
+      setLoading(false);
     });
     setFormData(initialFormData);
   };
 
   return (
     <>
-      <div className="row no-gutters justify-content-center">
-        <div className="col-sm-9 p-3">
-          {showAlert && (
-            <AlertCart setShow={setShowAlert} variation={alertVariation} />
-          )}
-          {cartList.length > 0 ? (
-            <CartProducts cartList={cartList} />
-          ) : (
-            <div className="p-3 text-center text-muted">
-              <p>Su carrito está vacío</p>
-              <Link to="/">
-                <Button>Ir al catalogo</Button>
-              </Link>
-            </div>
+      {loading ? (
+        <div className="text-center">
+          <h3 className="mt-4">Procesando compra...</h3>
+        </div>
+      ) : (
+        <div className="row no-gutters justify-content-center">
+          <div className="col-sm-9 p-3">
+            {showAlert && (
+              <AlertCart setShow={setShowAlert} variation={alertVariation} />
+            )}
+            {cartList.length > 0 ? (
+              <CartProducts cartList={cartList} />
+            ) : (
+              <div className="p-3 text-center text-muted">
+                <p>Su carrito está vacío</p>
+                <Link to="/">
+                  <Button>Ir al catalogo</Button>
+                </Link>
+              </div>
+            )}
+          </div>
+          {cartList.length > 0 && (
+            <CartSidebar
+              handleCheckout={handleCheckout}
+              handleOnChange={handleOnChange}
+              formData={formData}
+            />
           )}
         </div>
-        {cartList.length > 0 && (
-          <CartSidebar
-            handleCheckout={handleCheckout}
-            handleOnChange={handleOnChange}
-            formData={formData}
-          />
-        )}
-      </div>
+      )}
     </>
   );
 }
