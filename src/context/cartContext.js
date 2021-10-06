@@ -14,39 +14,39 @@ export const CartContext = ({ children }) => {
   const [cartTotals, setCartTotals] = useState({});
   const { updateStock } = useProductContext();
 
-  function addItem(item, quantity) {
+  function manageItemInCart(item, quantity, isAdd) {
     let newCartList;
     if (isInCart(item.id)) {
       newCartList = [...cartList];
       const itemIndex = findItemIndex(item.id);
       let itemInArray = newCartList[itemIndex];
-      itemInArray.quantity += quantity;
-      newCartList[itemIndex] = itemInArray;
-      setCartList(newCartList);
-    } else {
-      newCartList = [{ item: item, quantity: quantity }, ...cartList];
-      setCartList(newCartList);
-    }
-    itemTotals(newCartList);
-  }
-
-  function subtractItem(item, quantity) {
-    let newCartList;
-    if (isInCart(item.id)) {
-      newCartList = [...cartList];
-      const itemIndex = findItemIndex(item.id);
-      let itemInArray = newCartList[itemIndex];
-      if (itemInArray.quantity - quantity > 0) {
+      if (isAdd) {
+        itemInArray.quantity += quantity;
+      } else if (!isAdd && itemInArray.quantity - quantity > 0) {
         itemInArray.quantity -= quantity;
-        newCartList[itemIndex] = itemInArray;
         setCartList(newCartList);
       } else {
         return false;
       }
+      newCartList[itemIndex] = itemInArray;
+      setCartList(newCartList);
     } else {
-      return false;
+      if (isAdd) {
+        newCartList = [{ item: item, quantity: quantity }, ...cartList];
+        setCartList(newCartList);
+      } else {
+        return false;
+      }
     }
     itemTotals(newCartList);
+  }
+
+  function addItem(item, quantity) {
+    manageItemInCart(item, quantity, true);
+  }
+
+  function subtractItem(item, quantity) {
+    manageItemInCart(item, quantity, false);
   }
 
   function findItemIndex(itemId) {
