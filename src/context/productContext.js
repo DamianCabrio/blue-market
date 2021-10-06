@@ -79,7 +79,6 @@ export const ProductContext = ({ children }) => {
   };
 
   const createItemObject = (itemFromFirestore) => {
-    console.log(itemFromFirestore);
     if(itemFromFirestore.docs !== undefined){
       return itemFromFirestore.docs.map((product) => ({
         id: product.id,
