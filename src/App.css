@@ -17,9 +17,9 @@ a {
   text-decoration: none;
 }
 
-.carrito {
+#cartContainer{
+  grid-template-columns: 1fr 1fr;
   margin-left: 10px;
-  margin-right: 2px;
 }
 
 .App-header {
