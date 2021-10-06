@@ -7,29 +7,33 @@ import { useProductContext } from "../../context/productContext";
 function ItemListContainer() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { idCategory } = useParams();
-  const { getProducts, getProductsByCategory } = useProductContext();
+  const { idCategory, query } = useParams();
+  const { getProducts, getProductsByCategory,getProductsByQuery } = useProductContext();
 
   useEffect(() => {
-    document.title = "Catalogo Blue Market"
-    setLoading(true)
+    document.title = "Catalogo Blue Market";
+    setLoading(true);
     if (idCategory) {
-      document.title = idCategory + " - Blue Market"
+      document.title = idCategory + " - Blue Market";
       getProductsByCategory(idCategory)
-      .then((res) => {
+        .then((res) => {
+          setProducts(res);
+        })
+        .finally(() => setLoading(false));
+    } else if (query) {
+      document.title = query + " - Blue Market";
+      getProductsByQuery(query).then((res) => {
         setProducts(res);
       })
-      .catch((err) => console.log(err))
-      .then(() => setLoading(false));
+      .finally(() => setLoading(false));
     } else {
       getProducts()
         .then((res) => {
           setProducts(res);
         })
-        .catch((err) => console.log(err))
-        .then(() => setLoading(false));
+        .finally(() => setLoading(false));
     }
-  }, [idCategory, getProducts, getProductsByCategory]);
+  }, [idCategory, query, getProducts, getProductsByCategory,getProductsByQuery]);
 
   return (
     <>

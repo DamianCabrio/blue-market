@@ -7,6 +7,7 @@ import {
   query,
   where,
   writeBatch,
+  orderBy,
 } from "@firebase/firestore";
 import { createContext, useContext } from "react";
 import db from "../services/getFirebase";
@@ -20,10 +21,7 @@ export const useProductContext = () => {
 export const ProductContext = ({ children }) => {
   const getProducts = async () => {
     const productsDb = await getDocs(collection(db, "items"));
-    return productsDb.docs.map((product) => ({
-      id: product.id,
-      ...product.data(),
-    }));
+    return createItemObject(productsDb);
   };
 
   const getProductsByCategory = async (category) => {
@@ -32,17 +30,25 @@ export const ProductContext = ({ children }) => {
       where("categoryId", "==", category)
     );
     const productsDb = await getDocs(q);
-    return productsDb.docs.map((product) => ({
-      id: product.id,
-      ...product.data(),
-    }));
+    return createItemObject(productsDb);
+  };
+
+  const getProductsByQuery = async (queryToSearch) => {
+    const q = query(
+      collection(db, "items"),
+      orderBy("title"),
+      where("title", ">=", queryToSearch),
+      where("title", "<=", queryToSearch + "z")
+    );
+    const productsDb = await getDocs(q);
+    return createItemObject(productsDb);
   };
 
   const getProductById = async (id) => {
     const docRef = doc(db, "items", id);
     const product = await getDoc(docRef);
     if (product.exists()) {
-      return { id: product.id, ...product.data() };
+      return createItemObject(product);
     } else {
       return undefined;
     }
@@ -72,11 +78,23 @@ export const ProductContext = ({ children }) => {
     await batch.commit();
   };
 
+  const createItemObject = (itemFromFirestore) => {
+    console.log(itemFromFirestore);
+    if(itemFromFirestore.docs !== undefined){
+      return itemFromFirestore.docs.map((product) => ({
+        id: product.id,
+        ...product.data(),
+      }));
+    }
+    return { id: itemFromFirestore.id, ...itemFromFirestore.data() };
+  }
+
   return (
     <productContext.Provider
       value={{
         getProducts,
         getProductsByCategory,
+        getProductsByQuery,
         getProductById,
         updateStock,
       }}

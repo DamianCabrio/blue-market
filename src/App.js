@@ -22,6 +22,7 @@ function App() {
               exact
               component={ItemListContainer}
             />
+            <Route path="/search/:query" exact component={ItemListContainer} />
             <Route path="/item/:idItem" exact component={ItemDetailContainer} />
             <Route path="/cart" exact component={Cart} />
           </Switch>
