@@ -8,7 +8,8 @@ function ItemListContainer() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { idCategory, query } = useParams();
-  const { getProducts, getProductsByCategory,getProductsByQuery } = useProductContext();
+  const { getProducts, getProductsByCategory, getProductsByQuery } =
+    useProductContext();
 
   useEffect(() => {
     document.title = "Catalogo Blue Market";
@@ -20,20 +21,24 @@ function ItemListContainer() {
           setProducts(res);
         })
         .finally(() => setLoading(false));
-    } else if (query) {
-      document.title = query + " - Blue Market";
-      getProductsByQuery(query).then((res) => {
-        setProducts(res);
-      })
-      .finally(() => setLoading(false));
     } else {
       getProducts()
         .then((res) => {
-          setProducts(res);
+          let resProducts = res;
+          if (query) {
+            resProducts = res.filter((item) => item.title.toLowerCase().includes(query.toLowerCase()));
+          }
+          setProducts(resProducts);
         })
         .finally(() => setLoading(false));
     }
-  }, [idCategory, query, getProducts, getProductsByCategory,getProductsByQuery]);
+  }, [
+    idCategory,
+    query,
+    getProducts,
+    getProductsByCategory,
+    getProductsByQuery,
+  ]);
 
   return (
     <>

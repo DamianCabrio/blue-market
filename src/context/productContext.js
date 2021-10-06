@@ -7,7 +7,6 @@ import {
   query,
   where,
   writeBatch,
-  orderBy,
 } from "@firebase/firestore";
 import { createContext, useContext } from "react";
 import db from "../services/getFirebase";
@@ -28,17 +27,6 @@ export const ProductContext = ({ children }) => {
     const q = query(
       collection(db, "items"),
       where("categoryId", "==", category)
-    );
-    const productsDb = await getDocs(q);
-    return createItemObject(productsDb);
-  };
-
-  const getProductsByQuery = async (queryToSearch) => {
-    const q = query(
-      collection(db, "items"),
-      orderBy("title"),
-      where("title", ">=", queryToSearch),
-      where("title", "<=", queryToSearch + "z")
     );
     const productsDb = await getDocs(q);
     return createItemObject(productsDb);
@@ -93,7 +81,6 @@ export const ProductContext = ({ children }) => {
       value={{
         getProducts,
         getProductsByCategory,
-        getProductsByQuery,
         getProductById,
         updateStock,
       }}
