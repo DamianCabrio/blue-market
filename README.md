@@ -1,4 +1,5 @@
 # Blue Market
+Proyecto creado para el curso de React en Coder House por Damián Andrés Cabrio.
 
 ### [Link al sitio](https://blue-market.netlify.app/)
 
@@ -8,6 +9,17 @@ Para empezar correr el proyecto localmente primero bajar las dependencias con el
 Para generar un build para producción correr el comando `npm run build`.
 
 Para conectar el proyecto con una base de datos de Firestore hace falta crear un archivo .env.local con las credenciales de Firestore (se puede seguir el ejemplo del archivo .env.example, también en la ruta del proyecto).
+
+## Vistas
+
+### Cart
+La vista Cart muestra los items que el usuario agrega al carrito. Muestra el precio y la cantidad total de los productos, y tiene un control individual por cada producto para agregar, restar o quitarlos. También permite limpiar el carrito o terminar una compra ingresando los datos del comprador.
+
+### ItemDetailContainer
+Muestra una vista detallada de un producto, con una imagen, su título, descripción, precio, categoría y stock. También muestra un input que te permite seleccionar una cantidad del este producto para agregarlo al carrito (Si no hay stock no aparece este componente).
+
+### ItemListContainer
+Muestra una vista en lista de todos los productos disponibles en el sitio, con una imagen, título, precio y categoría. Si no hay stock de uno de los productos aparecerá un cartel avisando de esto.
 
 ## Componentes
 
@@ -57,17 +69,18 @@ Itera por todos los productos que le envíen por props, y crea un componente Ít
 El NavBar tiene los siguientes elementos actualmente:
 
 1. Brand link: Link con el nombre del sitio, que te lleva al index si se le hace clic.
-2. Catálogo: Igual al brand link:
+2. Catálogo: Igual al brand link.
 3. Dropdown con categorías: Muestra las categorías disponibles en el sitio, y permite filtrar por ellas.
-4. Buscador: Actualmente no tiene funcionamiento, pero más adelante te va a permitir filtrar productos por nombre
-5. Carrito: Actualmente no tiene funcionamiento, pero más adelante te va a permitir ver los productos que guardaste para comprar
+4. Buscador: Permitir filtrar productos por nombre.
+5. Carrito: Permitir ver los productos que guardaste para comprar.
 
 ## Rutas disponibles actualmente:
 
 1. `/`: Indice del sitio, muestra el catálogo de todos los productos, con la vista ItemListContainer.
-2. `/category/:idCategory`: Filtro del catálogo por categorías, si no existe la categoría dada se muestra un mensaje de error, con la vista ItemListContainer, pero filtrando los productos.
-3. `/item/:idItem`: Muestra el detalle de un producto, si el idItem no existe se muestra un mensaje de error, con la vista ItemDetailContainer.
-4. `/cart`: Muestra el desglose de los productos que estén actualmente en el carrito, con controles para agregar o quitar productos, y su cantidad y precio total. Si no hay ningún producto en el carrito se muestra un botón para ir al catálogo. Tiene la vista Cart.js.
+2. `/category/:idCategory`: Filtro del catálogo por categorías, si no existe la categoría dada se muestra un mensaje de error, con la vista de ItemListContainer, pero filtrando los productos.
+3. `/item/:idItem`: Muestra el detalle de un producto, si el idItem no existe se muestra un mensaje de error, con la vista de ItemDetailContainer.
+4. `/cart`: Muestra el desglose de los productos que estén actualmente en el carrito, con controles para agregar o quitar productos, y su cantidad y precio total. Si no hay ningún producto en el carrito se muestra un botón para ir al catálogo. Tiene la vista de Cart.js.
+5. `/search/:query`: Muestra la lista de productos filtrados por una query en particular que el usuario haya ingresado, con la vista de ItemListContainer.
 
 ## Contexts
 
@@ -96,12 +109,13 @@ Tiene 1 función:
 ### productContext
 
 Contexto que contiene las funciones para trabajar con los productos desde la base de datos de firestore.
-Tiene 4 funciones:
 
+Tiene 5 funciones:
 1. getProducts: Trae los documentos de la colección "items" de firestore.
 2. getProductsByCategory: Trae los documentos de la colección "items" de firestore filtrados por un ID de categoría particular.
 3. getProductById: Trae un documento de la colección "item", según un ID dado.
 4. updateStock: Actualiza el stock de los productos al realizarse una compra. Esta actualización la hace en lote.
+5. createItemObject: Transforma los datos de productos traídos de Firestore en un objeto entendible por el resto del sitio.
 
 ## Librerias utilizadas
 
