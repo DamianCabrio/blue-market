@@ -1,2 +1,2 @@
-import CartProducts from './CartProducts';
+import CartProducts from "./CartProducts";
 export default CartProducts;

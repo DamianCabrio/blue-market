@@ -1,5 +1,5 @@
 import { Alert } from "react-bootstrap";
-import { useCartContext } from './../../context/cartContext';
+import { useCartContext } from "./../../context/cartContext";
 
 const message = {
   success: {
@@ -21,7 +21,7 @@ const AlertCart = ({ variation, setShow }) => {
     <Alert variant={variation} onClose={() => setShow(false)} dismissible>
       <Alert.Heading>{message[variation].title}</Alert.Heading>
       <p>{message[variation].message}</p>
-      {variation === 'success' && <p>ID de orden: {lastOrder.id}</p>}
+      {variation === "success" && <p>ID de orden: {lastOrder.id}</p>}
     </Alert>
   );
 };

@@ -17,7 +17,7 @@ a {
   text-decoration: none;
 }
 
-#cartContainer{
+#cartContainer {
   grid-template-columns: 1fr 1fr;
   margin-left: 10px;
 }

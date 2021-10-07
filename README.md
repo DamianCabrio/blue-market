@@ -3,6 +3,7 @@
 ### [Link al sitio](https://blue-market.netlify.app/)
 
 ## Como correr el proyecyo
+
 Para empezar correr el proyecto localmente primero bajar las dependencias con el comando `npm install`, luego correr el comando `npm start`.
 Para generar un build para producción correr el comando `npm run build`.
 
@@ -11,38 +12,50 @@ Para conectar el proyecto con una base de datos de Firestore hace falta crear un
 ## Componentes
 
 ### AlertCart
+
 Cartel de alerta que se puede visualizar luego de realizar una compra. Tiene dos variantes, alerta de éxito y falla dependiendo del resultado de la operación de guardar la orden del usuario.
 
 ### CartItem
+
 Desglose de un ítem en el carrito, con control para agregar, quitar o eliminar un ítem en particular, además de la cantidad y precio de este.
 
 ### CartModal
+
 Modal con formulario para guardar datos del comprador en una orden, se puede ver en la vista de Cart.
 
 ### CartProducts
+
 Itera por todos los ítems que se encuentran el carrito actualmente, y crea un componente CartItem para cada uno de ellos.
 
 ## CartSidebar
+
 Muestra el total del precio y cantidad de artículos, y tiene 2 botones para terminar la compra o limpiar el carrito.
 
 ### CartWidget
+
 Icono de carrito que se muestra en el NavBar. Solo es visible cuando hay algún ítem en él, y tiene un contador con la cantidad de ítem que tiene adentro, que se actualiza en tiempo real
 
 ### Item
+
 Card del producto para el catálogo, muestra imagen, título, descripción, precio y categoría en un formato compacto. Además tiene un botón para ir a la vista detallada del producto.
 
 ### ItemCount
+
 Grupo de inputs que permiten seleccionar una cantidad de productos que el usuario quiera agregar al carrito, y te la permite agregar con un botón.
 Se muestra en el componente Item Detail.
 
 ### ItemDetail
+
 Vista detallada del ítem. Por ahora tiene la misma información que el componente ítem, pero con una organización horizontal, con la imagen a la izquierda y la información a la derecha. Además tiene un botón para volver al catálogo
 
 ### ItemList
+
 Itera por todos los productos que le envíen por props, y crea un componente Ítem para cada uno de ellos.
 
 ### NavBar
+
 El NavBar tiene los siguientes elementos actualmente:
+
 1. Brand link: Link con el nombre del sitio, que te lleva al index si se le hace clic.
 2. Catálogo: Igual al brand link:
 3. Dropdown con categorías: Muestra las categorías disponibles en el sitio, y permite filtrar por ellas.
@@ -50,6 +63,7 @@ El NavBar tiene los siguientes elementos actualmente:
 5. Carrito: Actualmente no tiene funcionamiento, pero más adelante te va a permitir ver los productos que guardaste para comprar
 
 ## Rutas disponibles actualmente:
+
 1. `/`: Indice del sitio, muestra el catálogo de todos los productos, con la vista ItemListContainer.
 2. `/category/:idCategory`: Filtro del catálogo por categorías, si no existe la categoría dada se muestra un mensaje de error, con la vista ItemListContainer, pero filtrando los productos.
 3. `/item/:idItem`: Muestra el detalle de un producto, si el idItem no existe se muestra un mensaje de error, con la vista ItemDetailContainer.
@@ -58,8 +72,10 @@ El NavBar tiene los siguientes elementos actualmente:
 ## Contexts
 
 ### cartContext
+
 Contexto que guarda los ítems que fueron agregados al carrito por el usuario.
 Tiene 9 funciones:
+
 1. addItem: Agrega una cierta cantidad de un ítem del carrito, si ese ítem ya esta al carrito no lo vuelve a agregar, sino que suma la nueva cantidad al elemento ya en el array.
 2. subtractItem: Elimina una cierta cantidad de un ítem del carrito.
 3. manageItemInCart: Metodo que le da funcionalidad a addItem y subtractItem, se simplificó la funcionalidad de estos dos métodos en esta función para no repetir código.
@@ -71,29 +87,36 @@ Tiene 9 funciones:
 9. saveOrder: Guarda una orden de ítems en la base de datos de Firestore, además hace un llamado a la función que actualiza los stocks de ítems.
 
 ### categoryContext
+
 Contexto que contiene las funciones para trabajar con las categorías desde la base de datos de firestore.
 Tiene 1 función:
+
 1. getCategories: Trae los documentos de la colección "category" de firestore.
 
 ### productContext
+
 Contexto que contiene las funciones para trabajar con los productos desde la base de datos de firestore.
 Tiene 4 funciones:
+
 1. getProducts: Trae los documentos de la colección "items" de firestore.
 2. getProductsByCategory: Trae los documentos de la colección "items" de firestore filtrados por un ID de categoría particular.
 3. getProductById: Trae un documento de la colección "item", según un ID dado.
 4. updateStock: Actualiza el stock de los productos al realizarse una compra. Esta actualización la hace en lote.
 
 ## Librerias utilizadas
+
 Las librerias utilizadas para el proyecto fueron:
-1. React (V17.0.2): Libreria base, para facilidad de desarrollo y mejor reactividad del sitio. [Link](https://es.reactjs.org/). 
+
+1. React (V17.0.2): Libreria base, para facilidad de desarrollo y mejor reactividad del sitio. [Link](https://es.reactjs.org/).
 2. react-bootstrap (V2.0.0-beta.6): Adaptación de la librería de Bootstrap para React, utilizada para facilitar el diseño de la UI. [Link](https://react-bootstrap.github.io/).
 3. react-router-dom (V5.3.0): Para permitir cambios de vistas al hacer clic en los links del sitio. [Link](https://reactrouter.com/web/guides/quick-start).
 4. Firebase (V9.1.0): SDK para utilizar Firestore. Aquí se guardan los productos, categorías y ordenes. [Link](https://firebase.google.com/)
 
 ## Base de datos
 
-La base de datos que se está utilizando es Firestore. 
+La base de datos que se está utilizando es Firestore.
 Esta base tiene 3 colecciones con la siguiente estructura:
+
 1. category: description (string), id (string).
 2. items: categoryId (string), description (string), imagenId (string), price (number), stock (number), title (string).
 3. orders: Objeto orden con otro objeto buyer dentro con los campos email (string), name (string) y phone (string). Luego un campo date (timestamp), otro objeto llamado items con un arreglo con todos los items que el usuario compro, que tienen los campos id (string), price (number) y title (string). Por último un campo total (number)

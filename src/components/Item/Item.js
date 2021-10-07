@@ -7,7 +7,12 @@ function Item({ product }) {
       <Card style={{ width: "18rem" }}>
         <Card.Img variant="top" src={product.imageId} />
         <Card.Body>
-          <Card.Title>{product.title} {product.stock === 0 && <span className="text-danger"> Sin stock</span>}</Card.Title>
+          <Card.Title>
+            {product.title}{" "}
+            {product.stock === 0 && (
+              <span className="text-danger"> Sin stock</span>
+            )}
+          </Card.Title>
           <Card.Text>
             {product.description} - ${product.price} ({product.categoryId})
           </Card.Text>

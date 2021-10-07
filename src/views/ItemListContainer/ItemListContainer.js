@@ -26,7 +26,9 @@ function ItemListContainer() {
         .then((res) => {
           let resProducts = res;
           if (query) {
-            resProducts = res.filter((item) => item.title.toLowerCase().includes(query.toLowerCase()));
+            resProducts = res.filter((item) =>
+              item.title.toLowerCase().includes(query.toLowerCase())
+            );
           }
           setProducts(resProducts);
         })

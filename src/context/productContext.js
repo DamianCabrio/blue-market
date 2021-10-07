@@ -67,14 +67,14 @@ export const ProductContext = ({ children }) => {
   };
 
   const createItemObject = (itemFromFirestore) => {
-    if(itemFromFirestore.docs !== undefined){
+    if (itemFromFirestore.docs !== undefined) {
       return itemFromFirestore.docs.map((product) => ({
         id: product.id,
         ...product.data(),
       }));
     }
     return { id: itemFromFirestore.id, ...itemFromFirestore.data() };
-  }
+  };
 
   return (
     <productContext.Provider

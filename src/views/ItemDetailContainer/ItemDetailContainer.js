@@ -12,7 +12,7 @@ function ItemDetailContainer() {
 
   useEffect(() => {
     document.title = "Blue Market";
-    setLoading(true)
+    setLoading(true);
     getProductById(idItem)
       .then((res) => {
         setItem(res);
@@ -20,7 +20,7 @@ function ItemDetailContainer() {
       .catch((err) => console.log(err))
       .then(() => {
         document.title = item.title + " - Blue Market";
-        setLoading(false)
+        setLoading(false);
       });
   }, [idItem, getProductById, item.title]);
 

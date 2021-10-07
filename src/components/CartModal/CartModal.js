@@ -13,7 +13,7 @@ const CartModal = ({ handleCheckout, formData, handleOnChange }) => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }else{
+    } else {
       setShowModal(false);
       handleCheckout(event);
     }
