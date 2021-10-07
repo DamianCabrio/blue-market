@@ -12,6 +12,7 @@ export const useCartContext = () => {
 export const CartContext = ({ children }) => {
   const [cartList, setCartList] = useState([]);
   const [cartTotals, setCartTotals] = useState({});
+  const [lastOrder, setLastOrder] = useState({});
   const { updateStock } = useProductContext();
 
   function manageItemInCart(item, quantity, isAdd) {
@@ -89,6 +90,7 @@ export const CartContext = ({ children }) => {
     if (docRef.id !== undefined) {
       await updateStock(cartList);
       clear();
+      setLastOrder(docRef);
       return true;
     } else {
       return false;
@@ -106,6 +108,7 @@ export const CartContext = ({ children }) => {
         saveOrder,
         cartTotals,
         cartList,
+        lastOrder,
       }}
     >
       {children}
