@@ -13,7 +13,7 @@ function ItemCount({ onAdd, max }) {
   }
 
   return (
-    <InputGroup className="mb-3 w-50">
+    <InputGroup className="mb-3 w-75">
       <FormControl
         defaultValue="1"
         min="1"
