@@ -22,10 +22,17 @@ export const CartContext = ({ children }) => {
       const itemIndex = findItemIndex(item.id);
       let itemInArray = newCartList[itemIndex];
       if (isAdd) {
-        itemInArray.quantity += quantity;
+        const indexItemAlreadyInCart = findItemIndex(item.id);
+        if (
+          indexItemAlreadyInCart === -1 ||
+          cartList[indexItemAlreadyInCart].quantity + quantity <= item.stock
+        ) {
+          itemInArray.quantity += quantity;
+        } else {
+          return false;
+        }
       } else if (!isAdd && itemInArray.quantity - quantity > 0) {
         itemInArray.quantity -= quantity;
-        setCartList(newCartList);
       } else {
         return false;
       }
@@ -40,14 +47,15 @@ export const CartContext = ({ children }) => {
       }
     }
     itemTotals(newCartList);
+    return true;
   }
 
   function addItem(item, quantity) {
-    manageItemInCart(item, quantity, true);
+    return manageItemInCart(item, quantity, true);
   }
 
   function subtractItem(item, quantity) {
-    manageItemInCart(item, quantity, false);
+    return manageItemInCart(item, quantity, false);
   }
 
   function findItemIndex(itemId) {

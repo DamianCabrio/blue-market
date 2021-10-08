@@ -7,11 +7,23 @@ import ItemCount from "./../ItemCount";
 
 function ItemDetail({ item }) {
   const [showItemCount, setShowItemCount] = useState(true);
+  const [showError, setshowError] = useState(false);
+
   const { addItem } = useCartContext();
 
   function onAdd(quantityToAdd) {
-    setShowItemCount(false);
-    addItem(item, parseInt(quantityToAdd));
+    const quantity = parseInt(quantityToAdd);
+    if (quantityToAdd <= item.stock && Number.isInteger(quantity)) {
+      const isAdded = addItem(item, quantity);
+      if (isAdded) {
+        setshowError(false);
+        setShowItemCount(false);
+      }else{
+        setshowError(true);
+      }
+    }else{
+      setshowError(true);
+    }
   }
 
   return (
@@ -30,6 +42,7 @@ function ItemDetail({ item }) {
                 {item.stock}
               </small>
             </p>
+            { showError && <p className="text-danger">Por favor, elige una cantidad de stock valida</p>}
             {item.stock > 0 ? (
               showItemCount ? (
                 <ItemCount onAdd={onAdd} max={item.stock} />
