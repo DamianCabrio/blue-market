@@ -25,6 +25,8 @@ Muestra una vista detallada de un producto, con una imagen, su título, descripc
 
 Muestra una vista en lista de todos los productos disponibles en el sitio, con una imagen, título, precio y categoría, con formato de Card. Si no hay stock de uno de los productos aparecerá un cartel avisando de esto.
 
+NOTA: Las todas las vistas y componentes son responsivas, y se pueden ver desde cualquier computadora o celular
+
 ## Componentes
 
 ### AlertCart
