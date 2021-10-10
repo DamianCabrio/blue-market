@@ -1,5 +1,5 @@
-import { CartModal } from "../../components";
-import { useCartContext } from "./../../context/cartContext";
+import { CartModal } from "../../../components";
+import { useCartContext } from "./../../../context/cartContext";
 
 function CartSidebar({ handleCheckout, handleOnChange, formData }) {
   const { cartTotals, clear } = useCartContext();
@@ -31,3 +31,4 @@ function CartSidebar({ handleCheckout, handleOnChange, formData }) {
 }
 
 export default CartSidebar;
+

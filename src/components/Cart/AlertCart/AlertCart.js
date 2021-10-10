@@ -1,5 +1,5 @@
 import { Alert } from "react-bootstrap";
-import { useCartContext } from "./../../context/cartContext";
+import { useCartContext } from "./../../../context/cartContext";
 
 const message = {
   success: {

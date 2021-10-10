@@ -9,9 +9,9 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useCartContext } from "./../../context/cartContext";
-import { useCategoryContext } from "./../../context/categoryContext";
-import CartWidget from "./../CartWidget/CartWidget";
+import { useCartContext } from "./../../../context/cartContext";
+import { useCategoryContext } from "./../../../context/categoryContext";
+import { CartWidget } from "./../../../components";
 import { useHistory } from "react-router-dom";
 
 function NavBar() {

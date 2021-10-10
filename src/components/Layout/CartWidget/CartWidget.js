@@ -1,6 +1,6 @@
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useCartContext } from "./../../context/cartContext";
+import { useCartContext } from "./../../../context/cartContext";
 
 function CartWidget() {
   const { cartTotals } = useCartContext();
