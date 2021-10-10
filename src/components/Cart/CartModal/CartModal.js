@@ -1,5 +1,5 @@
-import { Button, Modal, Form } from "react-bootstrap";
 import { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 
 const CartModal = ({ handleCheckout, formData, handleOnChange }) => {
   const [showModal, setShowModal] = useState(false);
