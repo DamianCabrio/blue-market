@@ -3,7 +3,7 @@ Proyecto creado para el curso de React en Coder House por Damián Andrés Cabrio
 
 ### [Link al sitio](https://blue-market.netlify.app/)
 
-## Como correr el proyecyo
+## Como correr el proyecto
 
 Para empezar correr el proyecto localmente primero bajar las dependencias con el comando `npm install`, luego correr el comando `npm start`.
 Para generar un build para producción correr el comando `npm run build`.
@@ -13,13 +13,13 @@ Para conectar el proyecto con una base de datos de Firestore hace falta crear un
 ## Vistas
 
 ### Cart
-La vista Cart muestra los items que el usuario agrega al carrito. Muestra el precio y la cantidad total de los productos, y tiene un control individual por cada producto para agregar, restar o quitarlos. También permite limpiar el carrito o terminar una compra ingresando los datos del comprador.
+La vista Cart muestra los ítems que el usuario agrega al carrito. Muestra el precio y la cantidad total de los productos, y tiene un control individual por cada producto para agregar, restar o quitarlos. También permite limpiar el carrito o terminar una compra ingresando los datos del comprador.
 
 ### ItemDetailContainer
-Muestra una vista detallada de un producto, con una imagen, su título, descripción, precio, categoría y stock. También muestra un input que te permite seleccionar una cantidad del este producto para agregarlo al carrito (Si no hay stock no aparece este componente).
+Muestra una vista detallada de un producto, con una imagen, su título, descripción, precio, categoría y stock. También muestra un input que te permite seleccionar una cantidad del producto para agregarlo al carrito (Si no hay stock no aparece este componente).
 
 ### ItemListContainer
-Muestra una vista en lista de todos los productos disponibles en el sitio, con una imagen, título, precio y categoría. Si no hay stock de uno de los productos aparecerá un cartel avisando de esto.
+Muestra una vista en lista de todos los productos disponibles en el sitio, con una imagen, título, precio y categoría, con formato de Card. Si no hay stock de uno de los productos aparecerá un cartel avisando de esto.
 
 ## Componentes
 
@@ -41,24 +41,23 @@ Itera por todos los ítems que se encuentran el carrito actualmente, y crea un c
 
 ## CartSidebar
 
-Muestra el total del precio y cantidad de artículos, y tiene 2 botones para terminar la compra o limpiar el carrito.
+Muestra el precio y cantidad total de los artículos en el carrito, y tiene 2 botones, uno para terminar la compra y otro para limpiar el carrito.
 
 ### CartWidget
 
-Icono de carrito que se muestra en el NavBar. Solo es visible cuando hay algún ítem en él, y tiene un contador con la cantidad de ítem que tiene adentro, que se actualiza en tiempo real
+Icono de carrito que se muestra en el NavBar. Solo es visible cuando hay algún ítem en él, y tiene un contador con la cantidad de ítem que tiene adentro, que se actualiza en tiempo real.
 
 ### Item
 
-Card del producto para el catálogo, muestra imagen, título, descripción, precio y categoría en un formato compacto. Además tiene un botón para ir a la vista detallada del producto.
+Card del producto para la vista del catálogo. Muestra imagen, título, descripción, precio y categoría en un formato compacto. Además tiene un botón para ir a la vista detallada del producto.
 
 ### ItemCount
 
-Grupo de inputs que permiten seleccionar una cantidad de productos que el usuario quiera agregar al carrito, y te la permite agregar con un botón.
-Se muestra en el componente Item Detail.
+Grupo de inputs que permiten seleccionar una cantidad de productos que el usuario quiera agregar al carrito, y te la permite agregar con un botón, si la cantidad de stock agregada esta disponible. Se muestra en el componente Item Detail.
 
 ### ItemDetail
 
-Vista detallada del ítem. Por ahora tiene la misma información que el componente ítem, pero con una organización horizontal, con la imagen a la izquierda y la información a la derecha. Además tiene un botón para volver al catálogo
+Vista detallada del ítem. Tiene la misma información que el componente Item, pero con una organización horizontal, con la imagen a la izquierda y la información a la derecha. Además tiene un botón para volver al catálogo, y el componente ItemCount para agregar una cierta cantidad de este ítem al carrito
 
 ### ItemList
 
@@ -70,11 +69,11 @@ El NavBar tiene los siguientes elementos actualmente:
 
 1. Brand link: Link con el nombre del sitio, que te lleva al index si se le hace clic.
 2. Catálogo: Igual al brand link.
-3. Dropdown con categorías: Muestra las categorías disponibles en el sitio, y permite filtrar por ellas.
+3. Dropdown con categorías: Muestra las categorías disponibles en el sitio (traídas de la base de datos), y permite filtrar los ítems por ellas.
 4. Buscador: Permitir filtrar productos por nombre.
-5. Carrito: Permitir ver los productos que guardaste para comprar.
+5. Carrito: Permitir ver los productos que agregaste en el para comprar.
 
-## Rutas disponibles actualmente:
+## Rutas disponibles:
 
 1. `/`: Indice del sitio, muestra el catálogo de todos los productos, con la vista ItemListContainer.
 2. `/category/:idCategory`: Filtro del catálogo por categorías, si no existe la categoría dada se muestra un mensaje de error, con la vista de ItemListContainer, pero filtrando los productos.
@@ -114,12 +113,12 @@ Tiene 5 funciones:
 1. getProducts: Trae los documentos de la colección "items" de firestore.
 2. getProductsByCategory: Trae los documentos de la colección "items" de firestore filtrados por un ID de categoría particular.
 3. getProductById: Trae un documento de la colección "item", según un ID dado.
-4. updateStock: Actualiza el stock de los productos al realizarse una compra. Esta actualización la hace en lote.
+4. updateStock: Actualiza el stock de los productos al realizarse una compra. Esta actualización se hace en lote.
 5. createItemObject: Transforma los datos de productos traídos de Firestore en un objeto entendible por el resto del sitio.
 
 ## Librerias utilizadas
 
-Las librerias utilizadas para el proyecto fueron:
+Las librerías utilizadas para el proyecto fueron:
 
 1. React (V17.0.2): Libreria base, para facilidad de desarrollo y mejor reactividad del sitio. [Link](https://es.reactjs.org/).
 2. react-bootstrap (V2.0.0-beta.6): Adaptación de la librería de Bootstrap para React, utilizada para facilitar el diseño de la UI. [Link](https://react-bootstrap.github.io/).
@@ -133,6 +132,6 @@ Esta base tiene 3 colecciones con la siguiente estructura:
 
 1. category: description (string), id (string).
 2. items: categoryId (string), description (string), imagenId (string), price (number), stock (number), title (string).
-3. orders: Objeto orden con otro objeto buyer dentro con los campos email (string), name (string) y phone (string). Luego un campo date (timestamp), otro objeto llamado items con un arreglo con todos los items que el usuario compro, que tienen los campos id (string), price (number) y title (string). Por último un campo total (number)
+3. orders: Objeto orden con otro objeto buyer dentro con los campos email (string), name (string) y phone (string). Luego un campo date (timestamp), otro objeto llamado items, con un arreglo con todos los items que el usuario compro, que tienen los campos id (string), price (number) y title (string). Por último un campo total (number)
 
 <img src="https://i.ibb.co/KGNVNV7/Modelo-Base-de-datos.jpg" alt="Imagen del modelo de la base" style="width:500px;"/>
