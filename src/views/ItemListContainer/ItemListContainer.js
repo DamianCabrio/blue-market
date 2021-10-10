@@ -44,8 +44,8 @@ function ItemListContainer() {
 
   return (
     <>
-      <Container>
-        <h1>Blue Market Inicio</h1>
+      <Container className="pb-5">
+        <h1 className="py-4">Bienvenido a Blue Market ¿Que va a buscar hoy?</h1>
         {idCategory ? <h3>Categoria {idCategory}</h3> : ""}
         {loading ? (
           <div className="text-center">
