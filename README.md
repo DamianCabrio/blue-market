@@ -1,4 +1,5 @@
 # Blue Market
+
 Proyecto creado para el curso de React en Coder House por Damián Andrés Cabrio.
 
 ### [Link al sitio](https://blue-market.netlify.app/)
@@ -13,12 +14,15 @@ Para conectar el proyecto con una base de datos de Firestore hace falta crear un
 ## Vistas
 
 ### Cart
+
 La vista Cart muestra los ítems que el usuario agrega al carrito. Muestra el precio y la cantidad total de los productos, y tiene un control individual por cada producto para agregar, restar o quitarlos. También permite limpiar el carrito o terminar una compra ingresando los datos del comprador.
 
 ### ItemDetailContainer
+
 Muestra una vista detallada de un producto, con una imagen, su título, descripción, precio, categoría y stock. También muestra un input que te permite seleccionar una cantidad del producto para agregarlo al carrito (Si no hay stock no aparece este componente).
 
 ### ItemListContainer
+
 Muestra una vista en lista de todos los productos disponibles en el sitio, con una imagen, título, precio y categoría, con formato de Card. Si no hay stock de uno de los productos aparecerá un cartel avisando de esto.
 
 ## Componentes
@@ -110,6 +114,7 @@ Tiene 1 función:
 Contexto que contiene las funciones para trabajar con los productos desde la base de datos de firestore.
 
 Tiene 5 funciones:
+
 1. getProducts: Trae los documentos de la colección "items" de firestore.
 2. getProductsByCategory: Trae los documentos de la colección "items" de firestore filtrados por un ID de categoría particular.
 3. getProductById: Trae un documento de la colección "item", según un ID dado.

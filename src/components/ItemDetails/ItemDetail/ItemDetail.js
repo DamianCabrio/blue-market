@@ -18,10 +18,10 @@ function ItemDetail({ item }) {
       if (isAdded) {
         setshowError(false);
         setShowItemCount(false);
-      }else{
+      } else {
         setshowError(true);
       }
-    }else{
+    } else {
       setshowError(true);
     }
   }
@@ -42,7 +42,11 @@ function ItemDetail({ item }) {
                 {item.stock}
               </small>
             </p>
-            { showError && <p className="text-danger">Por favor, elige una cantidad de stock valida</p>}
+            {showError && (
+              <p className="text-danger">
+                Por favor, elige una cantidad de stock valida
+              </p>
+            )}
             {item.stock > 0 ? (
               showItemCount ? (
                 <ItemCount onAdd={onAdd} max={item.stock} />

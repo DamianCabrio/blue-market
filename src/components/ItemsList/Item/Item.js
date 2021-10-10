@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 function Item({ product }) {
   return (
     <Col className="d-flex align-items-stretch">
-      <Card style={{ width: "18rem", height: '35rem' }} className="m-auto">
+      <Card style={{ width: "18rem", height: "35rem" }} className="m-auto">
         <Card.Img
           variant="top"
           src={product.imageId}
           className="h-100"
-          style={{ objectFit: "cover", }}
+          style={{ objectFit: "cover" }}
         />
         <Card.Body>
           <Card.Title>

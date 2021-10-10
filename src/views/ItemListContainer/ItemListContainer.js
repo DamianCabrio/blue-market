@@ -56,7 +56,10 @@ function ItemListContainer() {
         ) : products.length > 0 ? (
           <ItemList products={products} />
         ) : (
-          <h3>No se encontraron productos { idCategory && "con esta categoria"} {query && "con esta consulta"} </h3>
+          <h3>
+            No se encontraron productos {idCategory && "con esta categoria"}{" "}
+            {query && "con esta consulta"}{" "}
+          </h3>
         )}
       </Container>
     </>
