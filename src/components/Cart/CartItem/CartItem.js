@@ -21,10 +21,9 @@ const CartItem = ({ product, quantity, isEven }) => {
         isEven && "bg-light shadow-sm"
       }`}
     >
-      <div className="col-sm-2 p-2">
+      <div className="col-sm-2 p-2 cardItem">
         <img
           alt={product.title}
-          style={{ margin: "0 auto", maxHeight: "50px" }}
           src={product.imageId}
           className="img-fluid d-block"
         />
@@ -41,14 +40,15 @@ const CartItem = ({ product, quantity, isEven }) => {
       <div className="col-sm-4 p-2 text-right">
         <button
           onClick={handleAdd}
-          className="btn btn-primary btn-sm mr-2 mb-1"
+          className="btn btn-primary btn-sm mr-2 mb-1 cardItemButton"
+          disabled={product.stock === quantity}
         >
           +
         </button>
 
         {quantity > 1 && (
           <button
-            className="btn btn-danger btn-sm mb-1"
+            className="btn btn-danger btn-sm mb-1 cardItemButton"
             onClick={handleSubtract}
           >
             -
@@ -56,7 +56,7 @@ const CartItem = ({ product, quantity, isEven }) => {
         )}
 
         {quantity === 1 && (
-          <button onClick={handleRemove} className="btn btn-danger btn-sm mb-1">
+          <button onClick={handleRemove} className="btn btn-danger btn-sm mb-1 cardItemButton">
             X
           </button>
         )}
