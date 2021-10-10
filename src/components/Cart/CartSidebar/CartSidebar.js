@@ -4,7 +4,7 @@ import { useCartContext } from "./../../../context/cartContext";
 function CartSidebar({ handleCheckout, handleOnChange, formData }) {
   const { cartTotals, clear } = useCartContext();
   return (
-    <div className="col-sm-3 p-3">
+    <div className="col-sm-3 pl-3 pt-3">
       <div className="card card-body">
         <p className="mb-1">Total de artículos</p>
         <h4 className=" mb-3 txt-right">{cartTotals.amount}</h4>
@@ -31,4 +31,3 @@ function CartSidebar({ handleCheckout, handleOnChange, formData }) {
 }
 
 export default CartSidebar;
-

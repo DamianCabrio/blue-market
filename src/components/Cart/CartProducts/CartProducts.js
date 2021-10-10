@@ -6,11 +6,12 @@ const CartProducts = () => {
 
   return (
     <div className="card card-body border-0">
-      {cartList.map((product) => (
+      {cartList.map((product, index) => (
         <CartItem
           key={product.item.id}
           product={product.item}
           quantity={product.quantity}
+          isEven={index % 2 === 0}
         />
       ))}
     </div>

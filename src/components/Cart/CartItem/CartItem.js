@@ -1,6 +1,6 @@
 import { useCartContext } from "./../../../context/cartContext";
 
-const CartItem = ({ product, quantity }) => {
+const CartItem = ({ product, quantity, isEven }) => {
   const { addItem, removeItem, subtractItem } = useCartContext();
 
   function handleSubtract() {
@@ -16,7 +16,7 @@ const CartItem = ({ product, quantity }) => {
   }
 
   return (
-    <div className="row no-gutters py-2">
+    <div className={`row no-gutters py-2 rounded ${isEven && 'bg-light shadow-sm'}`}>
       <div className="col-sm-2 p-2">
         <img
           alt={product.title}
