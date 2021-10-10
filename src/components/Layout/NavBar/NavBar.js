@@ -6,13 +6,12 @@ import {
   FormControl,
   Nav,
   Navbar,
-  NavDropdown,
+  NavDropdown
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { CartWidget } from "./../../../components";
 import { useCartContext } from "./../../../context/cartContext";
 import { useCategoryContext } from "./../../../context/categoryContext";
-import { CartWidget } from "./../../../components";
-import { useHistory } from "react-router-dom";
 
 function NavBar() {
   const [categories, setCategories] = useState([]);
@@ -52,21 +51,23 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/" className="nav-link">
+            <NavLink to="/" exact activeClassName="active" className="nav-link">
               Catalogo
-            </Link>
+            </NavLink>
             {!loading && (
               <NavDropdown title="Categorias" id="collasible-nav-dropdown">
                 {categories.map((category) => {
                   return (
-                    <Link
+                    <NavLink
                       key={category.id}
                       to={"/category/" + category.id}
                       className="dropdown-item"
+                      exact
+                      activeClassName="active"
                     >
                       {category.id.charAt(0).toUpperCase() +
                         category.id.slice(1)}
-                    </Link>
+                    </NavLink>
                   );
                 })}
               </NavDropdown>
