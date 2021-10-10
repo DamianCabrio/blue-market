@@ -16,3 +16,7 @@ div.spinner-border {
   width: 5rem;
   height: 5rem;
 }
+
+#cartContainer span {
+  margin-left: 5px;
+}
