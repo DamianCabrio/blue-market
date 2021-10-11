@@ -84,7 +84,7 @@ export const CartContext = ({ children }) => {
       (prev, cur) => prev + cur.item.price * cur.quantity,
       0
     );
-    setCartTotals({ amount: amount, total: totalPrice });
+    setCartTotals({ amount: amount, total: totalPrice.toFixed(2) });
   }
 
   function isInCart(itemId) {
