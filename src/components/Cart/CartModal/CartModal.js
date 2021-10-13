@@ -44,7 +44,7 @@ const CartModal = ({ handleCheckout, formData, handleOnChange }) => {
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="name@ejemplo.com"
+                placeholder="Pepe Lopez"
                 value={formData.name}
                 name="name"
                 required
@@ -55,7 +55,7 @@ const CartModal = ({ handleCheckout, formData, handleOnChange }) => {
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="name@ejemplo.com"
+                placeholder="pepe@ejemplo.com"
                 value={formData.email}
                 name="email"
                 required
